@@ -1,0 +1,26 @@
+services:
+  noise-guard-bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    container_name: noise-guard-bot
+    env_file:
+      - .env
+    environment:
+      - DB_PATH=/data/noise_guard.db
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+
+  noise-guard-watcher:
+    build:
+      context: .
+      dockerfile: watcher/Dockerfile
+    container_name: noise-guard-watcher
+    env_file:
+      - .env
+    environment:
+      - DB_PATH=/data/noise_guard.db
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
