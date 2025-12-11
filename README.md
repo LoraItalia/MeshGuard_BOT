@@ -1,3 +1,4 @@
+
 # MeshGuard_BOT
 
 MeshGuard_BOT è un bot Telegram pensato per aiutare a tenere pulita la rete Meshtastic, segnalando in automatico i nodi che:
@@ -59,3 +60,102 @@ Nel repository trovi un file di esempio: **`.env.example`**.
 
    ```bash
    cp .env.example .env
+   ```
+
+2. Modifica `.env` e imposta i valori reali:
+
+   - `TELEGRAM_BOT_TOKEN` – token del bot ottenuto da BotFather.
+   - `TELEGRAM_GROUP_ID` – ID del gruppo in cui il bot deve scrivere.
+   - `TELEGRAM_TOPIC_ID` – ID del topic/thread (0 se non usato).
+   - `MQTT_HOST`, `MQTT_PORT`, `MQTT_USERNAME`, `MQTT_PASSWORD` – credenziali del broker MQTT.
+   - `MQTT_TOPIC` – topic da monitorare (es. `msh/#`).
+   - `NOISE_THRESHOLD` – soglia di messaggi/ora oltre la quale un nodo è considerato rumoroso.
+   - `LORAITALIA_*` – parametri per l’accesso all’API LoraItalia (opzionali).
+   - `LOG_LEVEL` – livello di log (`DEBUG`, `INFO`, `WARNING`, `ERROR`).
+
+Il file `.env` **non** viene commitato grazie al `.gitignore`.
+
+---
+
+## Installazione (senza Docker)
+
+```bash
+git clone https://github.com/LoraItalia/MeshGuard_BOT.git
+cd MeshGuard_BOT
+
+# (opzionale ma consigliato) crea un virtualenv
+python -m venv .venv
+source .venv/bin/activate  # su Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
+
+cp .env.example .env
+# modifica .env con i tuoi parametri
+```
+
+### Avvio dei servizi
+
+Watcher MQTT:
+
+```bash
+python watcher.py
+```
+
+Bot Telegram:
+
+```bash
+python bot.py
+```
+
+I nomi degli script possono variare in base all’evoluzione del progetto; fare riferimento alla struttura attuale della repo.
+
+---
+
+## Esecuzione con Docker
+
+Se nel repository è presente un `docker-compose.yml`, l’avvio tipico sarà:
+
+```bash
+cp .env.example .env
+# modifica .env con i tuoi parametri
+
+docker compose up -d
+```
+
+Questo di solito crea due container:
+
+- uno per il watcher MQTT,
+- uno per il bot Telegram.
+
+---
+
+## Comandi Telegram (indicativi)
+
+L’elenco preciso dei comandi può evolvere. Alcuni comandi previsti / tipici:
+
+- `/start` – mostra un messaggio di benvenuto e una breve spiegazione.
+- `/help` – riepilogo dei comandi disponibili.
+- `/stats` – mostra un riepilogo dei nodi più rumorosi in un certo intervallo.
+- `/node <id>` – mostra i dettagli di un singolo nodo (traffico recente, eventuali note).
+- `/setname` – procedura guidata per collegare un utente Telegram a uno o più nodi Meshtastic.
+
+I comandi rapidi possono essere configurati nel BotFather alla voce **Edit Commands**.
+
+---
+
+## Linee guida d’uso
+
+- Lo scopo del bot è **migliorare la rete**, non attaccare i singoli utenti.
+- Le segnalazioni che emergono dal bot dovrebbero essere usate per:
+  - contattare chi gestisce il nodo,
+  - proporre configurazioni migliori,
+  - evitare spam e configurazioni che disturbano la rete.
+
+Suggerimenti, bug e miglioramenti sono benvenuti tramite issue su GitHub o nel gruppo Telegram dedicato.
+
+---
+
+## Licenza
+
+Questo progetto è rilasciato sotto licenza **MIT**.  
+Vedi il file [`LICENSE`](LICENSE) per i dettagli.
