@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: bot/Dockerfile
-    container_name: noise-guard-bot
+    container_name: MesGuard_Bot
     env_file:
       - .env
     environment:
@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: watcher/Dockerfile
-    container_name: noise-guard-watcher
+    container_name: MesGuard_Watcher
     env_file:
       - .env
     environment:
