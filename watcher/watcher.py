@@ -236,7 +236,7 @@ def handle_noise_counters(node_num: str, message: dict):
         from datetime import timedelta as _td
         min_time = now - _td(seconds=NOTIFICATION_INTERVAL_SECONDS)
         cur2 = conn.execute(
-            "SELECT 1 FROM notifications WHERE node_num = ? AND window_start = ? AND created_at >= ? L>
+            "SELECT 1 FROM notifications WHERE node_num = ? AND window_start = ? AND created_at >= ? LIMIT 1",
             (node_num, iso(window_start), iso(min_time)),
         )
         if cur2.fetchone():
