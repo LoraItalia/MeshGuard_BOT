@@ -271,7 +271,7 @@ def job_process_notifications(bot):
                 continue
 
             node_pretty = f"!{node_num.lower()}"
-            cats_parts  = [f"{k}: {v}" for k, v in sorted(cats.items(), key=lambda kv: kv[1], reverse=>
+            cats_parts  = [f"{k}: {v}" for k, v in sorted(cats.items(), key=lambda kv: kv[1], reverse=True)]
             cats_str    = ", ".join(cats_parts)
 
             send_errors = []
