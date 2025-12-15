@@ -313,7 +313,7 @@ def main():
         entry_points=[CommandHandler("setname", cmd_setname)],
         states={
             SETNAME_WAIT_NODE: [CallbackQueryHandler(on_setname_node_choice, pattern=r"^setname:")],
-            SETNAME_WAIT_NAME: [MessageHandler(Filters.text & ~Filters.command, on_setname_receive_nam>
+            SETNAME_WAIT_NAME: [MessageHandler(Filters.text & ~Filters.command, on_setname_receive_name)],
         },
         fallbacks=[CommandHandler("cancel", cmd_cancel)],
     )
