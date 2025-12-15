@@ -157,7 +157,7 @@ def handle_link_token(node_num: str, message: dict):
     hex_id_pretty = f"!{node_num.lower()}"
     display_name  = short_name or long_name or hex_id_pretty
     msg = (
-        f"✅ Nodo {display_name} ({hex_id_pretty}) collegato correttamente al tuo account Telegram.\n\>
+        f"✅ Nodo {display_name} ({hex_id_pretty}) collegato correttamente al tuo account Telegram.\n\n"
         "Da ora in poi riceverai gli avvisi se il nodo diventa rumoroso."
     )
     send_telegram_message(chat_id, msg)
